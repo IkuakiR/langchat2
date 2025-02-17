@@ -45,7 +45,8 @@ export default function Home() {
                   '/images/germanyFlag.svg',
                   '/images/chinaFlag.svg',
                   '/images/koreaFlag.svg',
-                  '/images/italyFlag.svg'
+                  '/images/italyFlag.svg',
+                  '/images/russiaFlag.svg'
                 ].map((src, index) => (
                   <div key={index} className={styles.gridItem}>
                     <Image
