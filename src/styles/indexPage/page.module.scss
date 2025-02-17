@@ -1,0 +1,173 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.header {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #69b3f6;
+    color: white;
+    text-align: center;
+    padding: 0 40px;
+}
+
+.logo {
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logoText {
+    display: block;
+}
+
+.welcomeText {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.profileIcon {
+    flex-shrink: 0;
+}
+
+.main {
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1rem;
+    margin: 0 auto;
+}
+
+.mainTitle {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 1.875rem;
+    font-weight: 400;
+    text-align: center;
+    color: #555;
+    margin: 2rem 0 3rem 0;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    gap: 55px;
+
+    .sideIcon {
+        width: 8vw;
+        height: 8vw;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .sideText {
+        font-size: 1.5rem;
+        font-family: 'Noto Sans JP', sans-serif;
+        color: #333;
+        text-align: center;
+    }
+}
+
+.selectSection {
+    position: relative;
+    max-width: calc(80% - 4rem);
+    flex: 1;
+    margin: 0 2rem;
+    padding-right: 2rem;
+    box-sizing: border-box;
+
+    .gridTop {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+
+        .gridItem {
+            position: relative;
+            background-color: #d3d3d3;
+            aspect-ratio: 27 / 16;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    }
+
+    /* 複数行のルームリストを縦に並べ、行間に隙間を設定 */
+    .roomList {
+        width: 100%;
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        /* 1行目と2行目の間隔 */
+
+        ul {
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+            overflow-x: auto;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            /* 各ルームの li 用 */
+            .roomItem {
+                position: relative;
+                flex-shrink: 0;
+                width: 20vw;
+                height: 12vw;
+                background-color: #555;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+/* 画像コンテナ：画像をルームラベルの下に配置 */
+.imageWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* ルーム番号ラベル */
+.roomLabel {
+    position: relative;
+    z-index: 1;
+    font-size: 1rem;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    text-align: center;
+    padding: 0.2rem 0;
+    /* ラベルが画像に隠れないように下部に固定 */
+    bottom: 0;
+}
