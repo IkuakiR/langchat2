@@ -14,33 +14,15 @@ interface BookmarkMessage {
     time: string;
     messageId: string;
     translatedText?: string;
-    lang?: string; // 例: "english", "german", "chinese", "korean", "french"
+    lang?: string;
     learned?: boolean;
 }
 
 export default function BookMark() {
-    // 状態管理
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedBookmark, setSelectedBookmark] = useState<BookmarkMessage | null>(null);
-    const [bookmarks, setBookmarks] = useState<BookmarkMessage[]>([]);
-    // フィルター用状態：言語フィルタ（selectBox）と習得済みフィルタ（filterOption）
-    const [selectedLanguage, setSelectedLanguage] = useState<string>('all');
-    const [filterType, setFilterType] = useState<'all' | 'learned'>('all');
-
-    // 動的ブックマークの読み込み（localStorage）
-    useEffect(() => {
-        const stored = localStorage.getItem('bookmarks');
-        if (stored) {
-            try {
-                setBookmarks(JSON.parse(stored));
-            } catch (error) {
-                console.error('Error parsing bookmarks:', error);
-            }
-        }
-    }, []);
-
-    // 静的なダミーデータ（lang, learned を付与）
-    const staticBookmarks: BookmarkMessage[] = [
+    const [dynamicBookmarks, setDynamicBookmarks] = useState<BookmarkMessage[]>([]);
+    const [staticBookmarks, setStaticBookmarks] = useState<BookmarkMessage[]>([
         {
             id: 'dummy1',
             text: "What's good?",
@@ -96,12 +78,23 @@ export default function BookMark() {
             lang: 'german',
             learned: false,
         },
-    ];
+    ]);
+    const [selectedLanguage, setSelectedLanguage] = useState<string>('all');
+    const [filterType, setFilterType] = useState<'all' | 'learned'>('all');
 
-    // 両方をまとめる
-    const allBookmarks = [...bookmarks, ...staticBookmarks];
+    useEffect(() => {
+        const stored = localStorage.getItem('bookmarks');
+        if (stored) {
+            try {
+                setDynamicBookmarks(JSON.parse(stored));
+            } catch (error) {
+                console.error('Error parsing dynamic bookmarks:', error);
+            }
+        }
+    }, []);
 
-    // フィルター処理：言語フィルタと、filterType（全て or 習得済み）で絞り込む
+    const allBookmarks = [...dynamicBookmarks, ...staticBookmarks];
+
     const filteredBookmarks = allBookmarks.filter((bm) => {
         const langMatch = selectedLanguage === 'all' || bm.lang === selectedLanguage;
         const typeMatch = filterType === 'all' || bm.learned;
@@ -109,9 +102,8 @@ export default function BookMark() {
     });
 
     const handleDeleteBookmark = (id: string) => {
-        // 動的なブックマークのみ削除（sender !== 0）
-        const updated = bookmarks.filter((bm) => bm.id !== id);
-        setBookmarks(updated);
+        const updated = dynamicBookmarks.filter((bm) => bm.id !== id);
+        setDynamicBookmarks(updated);
         localStorage.setItem('bookmarks', JSON.stringify(updated));
     };
 
@@ -120,18 +112,21 @@ export default function BookMark() {
         setModalOpen(true);
     };
 
-    // モーダル内の「習得した」ボタン押下で learned フラグを更新
     const handleMarkLearned = () => {
         if (!selectedBookmark) return;
         const updatedBookmark = { ...selectedBookmark, learned: true };
         setSelectedBookmark(updatedBookmark);
-        // 動的ブックマークの場合は更新する
         if (selectedBookmark.sender !== 0) {
-            const updatedDynamic = bookmarks.map((bm) =>
+            const updatedDynamic = dynamicBookmarks.map((bm) =>
                 bm.id === selectedBookmark.id ? { ...bm, learned: true } : bm
             );
-            setBookmarks(updatedDynamic);
+            setDynamicBookmarks(updatedDynamic);
             localStorage.setItem('bookmarks', JSON.stringify(updatedDynamic));
+        } else {
+            const updatedStatic = staticBookmarks.map((bm) =>
+                bm.id === selectedBookmark.id ? { ...bm, learned: true } : bm
+            );
+            setStaticBookmarks(updatedStatic);
         }
         setModalOpen(false);
     };
@@ -174,7 +169,6 @@ export default function BookMark() {
                     </Link>
                     <span className={styles.bookmarkText}> _ ブックマーク</span>
                 </h1>
-
                 <div className={styles.bookmarkContainer}>
                     {filteredBookmarks.length > 0 &&
                         filteredBookmarks.map((bookmark) => (
@@ -224,7 +218,7 @@ export default function BookMark() {
                                 </div>
                             </div>
                         ))}
-                    <div className={styles.selectBoxContainer}>
+                    <div>
                         <select
                             className={styles.selectBox}
                             value={selectedLanguage}
@@ -240,15 +234,13 @@ export default function BookMark() {
                     </div>
                     <div className={styles.filterOption}>
                         <p
-                            className={`${styles.filterOptionItem} ${filterType === 'all' ? styles.active : styles.inactive
-                                }`}
+                            className={`${styles.filterOptionItem} ${filterType === 'all' ? styles.active : styles.inactive}`}
                             onClick={() => setFilterType('all')}
                         >
                             全て
                         </p>
                         <p
-                            className={`${styles.filterOptionItem} ${filterType === 'learned' ? styles.active : styles.inactive
-                                }`}
+                            className={`${styles.filterOptionItem} ${filterType === 'learned' ? styles.active : styles.inactive}`}
                             onClick={() => setFilterType('learned')}
                         >
                             習得済み
