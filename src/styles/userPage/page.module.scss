@@ -41,10 +41,64 @@ $mainColor: #69b3f6;
     flex-shrink: 0;
 }
 
+.titleContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0 8vw;
+}
+
+.optionsWrapper {
+    position: relative;
+    margin-left: 10px;
+}
+
+.optionsButton {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+    margin-left: 20px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.threeDots {
+    font-size: 1.5rem;
+    color: #00417d;
+}
+
+.optionsPopup {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 100px;
+}
+
+.optionItem {
+    padding: 8px 12px;
+    font-size: 1rem;
+    color: #00417d;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(150, 217, 255, 0.5);
+    }
+}
+
 .myPageTitle {
     font-size: 2.5rem;
     font-family: $mainFont;
-    margin: 50px 0 20px 8vw;
+    margin: 50px 0 20px 0;
 }
 
 .myPageGrid {

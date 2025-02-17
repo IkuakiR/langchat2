@@ -1,10 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/styles/userPage/page.module.scss';
 
 export default function MyPage() {
+    // ポップアップの表示・非表示用のstate
+    const [showOptions, setShowOptions] = useState(false);
+
     return (
         <div className={styles.container}>
             <header className={styles.header}>
@@ -36,7 +40,24 @@ export default function MyPage() {
                     />
                 </Link>
             </header>
-            <h1 className={styles.myPageTitle}>ユーザーページ</h1>
+            <div className={styles.titleContainer}>
+                <h1 className={styles.myPageTitle}>ユーザーページ</h1>
+                <div className={styles.optionsWrapper}>
+                    <div
+                        className={styles.optionsButton}
+                        onClick={() => setShowOptions(!showOptions)}
+                    >
+                        <span className={styles.threeDots}>⋮</span>
+                    </div>
+                    {showOptions && (
+                        <div className={styles.optionsPopup}>
+                            <div className={styles.optionItem}>フォロー</div>
+                            <div className={styles.optionItem}>ブロック</div>
+                        </div>
+                    )}
+                </div>
+            </div>
+
             <div className={styles.myPageGrid}>
                 <div className={styles.topRow}>
                     <div className={styles.user}>
@@ -53,8 +74,10 @@ export default function MyPage() {
                     <div className={styles.bio}>
                         <h2 className={styles.contentTitle}>BIO</h2>
                         <p className={styles.bioText}>
-                            日本のアニメが大好きな韓国人です<br />
-                            仲良くしてくださいね！<br />
+                            日本のアニメが大好きな韓国人です
+                            <br />
+                            仲良くしてくださいね！
+                            <br />
                         </p>
                     </div>
                     <div className={styles.location}>
