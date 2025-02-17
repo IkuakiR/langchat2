@@ -14,15 +14,20 @@ interface BookmarkMessage {
     time: string;
     messageId: string;
     translatedText?: string;
-    lang?: string;
+    lang?: string; // 例: "english", "german", "chinese", "korean", "french"
+    learned?: boolean;
 }
 
 export default function BookMark() {
+    // 状態管理
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedBookmark, setSelectedBookmark] = useState<BookmarkMessage | null>(null);
     const [bookmarks, setBookmarks] = useState<BookmarkMessage[]>([]);
+    // フィルター用状態：言語フィルタ（selectBox）と習得済みフィルタ（filterOption）
     const [selectedLanguage, setSelectedLanguage] = useState<string>('all');
+    const [filterType, setFilterType] = useState<'all' | 'learned'>('all');
 
+    // 動的ブックマークの読み込み（localStorage）
     useEffect(() => {
         const stored = localStorage.getItem('bookmarks');
         if (stored) {
@@ -34,6 +39,7 @@ export default function BookMark() {
         }
     }, []);
 
+    // 静的なダミーデータ（lang, learned を付与）
     const staticBookmarks: BookmarkMessage[] = [
         {
             id: 'dummy1',
@@ -44,6 +50,7 @@ export default function BookMark() {
             time: '',
             messageId: 'dummy1',
             lang: 'english',
+            learned: false,
         },
         {
             id: 'dummy2',
@@ -54,6 +61,7 @@ export default function BookMark() {
             time: '',
             messageId: 'dummy2',
             lang: 'german',
+            learned: false,
         },
         {
             id: 'dummy3',
@@ -64,6 +72,7 @@ export default function BookMark() {
             time: '',
             messageId: 'dummy3',
             lang: 'english',
+            learned: false,
         },
         {
             id: 'dummy4',
@@ -74,6 +83,7 @@ export default function BookMark() {
             time: '',
             messageId: 'dummy4',
             lang: 'chinese',
+            learned: false,
         },
         {
             id: 'dummy5',
@@ -84,17 +94,22 @@ export default function BookMark() {
             time: '',
             messageId: 'dummy5',
             lang: 'german',
+            learned: false,
         },
     ];
 
+    // 両方をまとめる
     const allBookmarks = [...bookmarks, ...staticBookmarks];
 
+    // フィルター処理：言語フィルタと、filterType（全て or 習得済み）で絞り込む
     const filteredBookmarks = allBookmarks.filter((bm) => {
-        if (selectedLanguage === 'all') return true;
-        return bm.lang === selectedLanguage;
+        const langMatch = selectedLanguage === 'all' || bm.lang === selectedLanguage;
+        const typeMatch = filterType === 'all' || bm.learned;
+        return langMatch && typeMatch;
     });
 
     const handleDeleteBookmark = (id: string) => {
+        // 動的なブックマークのみ削除（sender !== 0）
         const updated = bookmarks.filter((bm) => bm.id !== id);
         setBookmarks(updated);
         localStorage.setItem('bookmarks', JSON.stringify(updated));
@@ -103,6 +118,22 @@ export default function BookMark() {
     const handleShowDetail = (bm: BookmarkMessage) => {
         setSelectedBookmark(bm);
         setModalOpen(true);
+    };
+
+    // モーダル内の「習得した」ボタン押下で learned フラグを更新
+    const handleMarkLearned = () => {
+        if (!selectedBookmark) return;
+        const updatedBookmark = { ...selectedBookmark, learned: true };
+        setSelectedBookmark(updatedBookmark);
+        // 動的ブックマークの場合は更新する
+        if (selectedBookmark.sender !== 0) {
+            const updatedDynamic = bookmarks.map((bm) =>
+                bm.id === selectedBookmark.id ? { ...bm, learned: true } : bm
+            );
+            setBookmarks(updatedDynamic);
+            localStorage.setItem('bookmarks', JSON.stringify(updatedDynamic));
+        }
+        setModalOpen(false);
     };
 
     return (
@@ -143,6 +174,7 @@ export default function BookMark() {
                     </Link>
                     <span className={styles.bookmarkText}> _ ブックマーク</span>
                 </h1>
+
                 <div className={styles.bookmarkContainer}>
                     {filteredBookmarks.length > 0 &&
                         filteredBookmarks.map((bookmark) => (
@@ -192,14 +224,13 @@ export default function BookMark() {
                                 </div>
                             </div>
                         ))}
-
                     <div className={styles.selectBoxContainer}>
                         <select
                             className={styles.selectBox}
                             value={selectedLanguage}
                             onChange={(e) => setSelectedLanguage(e.target.value)}
                         >
-                            <option value="all">全て</option>
+                            <option value="all">全言語</option>
                             <option value="english">英語</option>
                             <option value="german">ドイツ語</option>
                             <option value="chinese">中国語</option>
@@ -208,9 +239,22 @@ export default function BookMark() {
                         </select>
                     </div>
                     <div className={styles.filterOption}>
-                        <p className={styles.all}>全て</p>
-                        <p className={styles.learned}>習得済み</p>
-                    </div></div>
+                        <p
+                            className={`${styles.filterOptionItem} ${filterType === 'all' ? styles.active : styles.inactive
+                                }`}
+                            onClick={() => setFilterType('all')}
+                        >
+                            全て
+                        </p>
+                        <p
+                            className={`${styles.filterOptionItem} ${filterType === 'learned' ? styles.active : styles.inactive
+                                }`}
+                            onClick={() => setFilterType('learned')}
+                        >
+                            習得済み
+                        </p>
+                    </div>
+                </div>
             </div>
 
             {modalOpen && selectedBookmark && (
@@ -233,6 +277,9 @@ export default function BookMark() {
                                 ? selectedBookmark.translatedText
                                 : '（翻訳結果なし）'}
                         </p>
+                        <button className={styles.learnedButton} onClick={handleMarkLearned}>
+                            習得した
+                        </button>
                     </div>
                 </div>
             )}
