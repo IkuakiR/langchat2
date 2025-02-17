@@ -1,0 +1,192 @@
+$mainFont: 'Note Sans JP', sans-serif;
+$mainColor: #69b3f6;
+
+.container {
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #fff;
+    padding-bottom: 60px;
+}
+
+.header {
+    width: 100vw;
+    height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $mainColor;
+    color: white;
+    text-align: center;
+    padding: 0 40px;
+}
+
+.logoSet {
+    display: flex;
+    align-items: center;
+
+    .logo {
+        flex-shrink: 0;
+        aspect-ratio: 1 / 1;
+    }
+
+    .logoText {
+        display: block;
+        padding-top: 10px;
+    }
+}
+
+.profileIcon {
+    flex-shrink: 0;
+}
+
+.myPageTitle {
+    font-size: 2.5rem;
+    font-family: $mainFont;
+    margin: 50px 0 20px 8vw;
+}
+
+.myPageGrid {
+    margin: 0 8vw;
+    font-family: $mainFont;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.topRow {
+    display: grid;
+    grid-template-columns: 287fr 497fr 322fr;
+    gap: 20px;
+
+    .contentTitle {
+        font-size: 1.5rem;
+        margin-left: 20px;
+        color: #00417d;
+    }
+
+    .user {
+        height: 300px;
+        background-color: rgba(150, 217, 255, 0.5);
+        border-radius: 10px;
+        padding-top: 10px;
+
+        .profileImg {
+            margin-top: 10px;
+            width: 100%;
+            height: 182px;
+            object-fit: cover;
+        }
+
+        .userName {
+            margin: 10px 0 0 20px;
+            font-size: 1.5rem;
+            color: #00417d;
+        }
+    }
+
+    .bio {
+        height: 300px;
+        background-color: rgba(150, 217, 255, 0.5);
+        border-radius: 10px;
+        padding-top: 10px;
+
+        .bioText {
+            margin: 20px 0 0 20px;
+            color: #00417d;
+            font-size: 1.5rem;
+        }
+    }
+
+    .location {
+        height: 300px;
+        background-color: rgba(150, 217, 255, 0.5);
+        border-radius: 10px;
+        padding-top: 10px;
+
+        .japanImg {
+            margin-top: 10px;
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .locationName {
+            margin: 10px 0 0 20px;
+            font-size: 1.5rem;
+            color: #00417d;
+        }
+    }
+}
+
+.middleRow {
+
+    .contentTitle {
+        font-size: 1.5rem;
+        margin-left: 20px;
+        color: #00417d;
+    }
+
+    .language {
+        height: 160px;
+        background-color: rgba(150, 217, 255, 0.5);
+        border-radius: 10px;
+        padding-top: 10px;
+
+        .langType {
+            margin: 20px 0 0 20px;
+            display: flex;
+            gap: 16px;
+
+            p {
+                width: 65px;
+                height: 65px;
+                color: #fff;
+                font-family: $mainFont;
+                font-weight: 700;
+                background-color: #25c1ff;
+                border-radius: 50%;
+                text-align: center;
+                line-height: 65px;
+            }
+        }
+    }
+
+    .bookmark {
+        height: 160px;
+        background-color: rgba(150, 217, 255, 0.5);
+        border-radius: 10px;
+        padding-top: 10px;
+
+        .bookmarkTop {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+
+            .moreLink {
+                font-size: 1.25rem;
+                font-family: $mainFont;
+                font-weight: 700;
+                color: #00417d;
+            }
+        }
+
+        .bookmarkContents {
+            margin: 20px 0 0 20px;
+
+            .bookmarkContent {
+                margin-bottom: 10px;
+                display: flex;
+                gap: 15px;
+                align-items: center;
+
+                p {
+                    font-size: 1.25rem;
+                    color: #000;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
