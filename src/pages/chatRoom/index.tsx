@@ -93,7 +93,7 @@ const Home = () => {
     const handleBookmark = (msg: Message) => {
         if (msg.sender === userId) return;
         if (bookmarkedMessages.find((m) => m.id === msg.id)) return;
-        const newBookmark = { ...msg, translatedText: translations[msg.id] || '' };
+        const newBookmark = { ...msg, translatedText: translations[msg.id] || '', lang: 'english' };
         const newBookmarks = [...bookmarkedMessages, newBookmark];
         setBookmarkedMessages(newBookmarks);
         localStorage.setItem('bookmarks', JSON.stringify(newBookmarks));
@@ -105,15 +105,12 @@ const Home = () => {
 
     useEffect(() => {
         chatMessages.forEach((msg) => {
-            if (
-                msg.sender !== userId &&
-                !isJapanese(msg.text) &&
-                !translations[msg.id]
-            ) {
+            if (msg.sender !== userId && !translations[msg.id]) {
+                const targetLang = isJapanese(msg.text) ? 'en' : 'ja';
                 fetch('/api/translate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: msg.text }),
+                    body: JSON.stringify({ text: msg.text, target: targetLang }),
                 })
                     .then((res) => res.json())
                     .then((data) => {
@@ -277,7 +274,7 @@ const Home = () => {
                     />
                 </div>
             </div>
-            <Link href={'/'}>
+            <Link href={'/chatDone'}>
                 <div className={styles.finishButton}>
                     <Image
                         src="/images/finishButton.svg"
