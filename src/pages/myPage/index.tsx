@@ -38,7 +38,6 @@ export default function MyPage() {
             </header>
             <h1 className={styles.myPageTitle}>マイページ</h1>
             <div className={styles.myPageGrid}>
-                {/* 上段のグリッド */}
                 <div className={styles.topRow}>
                     <div className={styles.user}>
                         <h2 className={styles.contentTitle}>USER</h2>
@@ -73,7 +72,7 @@ export default function MyPage() {
                         <p className={styles.locationName}>JAPAN</p>
                     </div>
                 </div>
-                <div className={styles.bottomRow}>
+                <div className={styles.middleRow}>
                     <div className={styles.language}>
                         <h2 className={styles.contentTitle}>LANGUAGE</h2>
                         <div className={styles.langType}>
@@ -110,6 +109,29 @@ export default function MyPage() {
                                     className={styles.langIcon}
                                 />
                                 <p>Auf jeden</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.bottomRow}>
+                    <div className={styles.chatHistory}>
+                        <div className={styles.historyTop}>
+                            <h2 className={styles.contentTitle}>CHAT HISTORY</h2>
+                            <Link href="/chatHistory/" className={styles.moreLink}>
+                                watch more→
+                            </Link>
+                        </div>
+                        <div className={styles.userContent}>
+                            <Image
+                                src="/images/femaleIcon.svg"
+                                alt=""
+                                width={60}
+                                height={60}
+                                className={styles.userIcon}
+                            />
+                            <div className={styles.userInfo}>
+                                <p className={styles.userName}>Lim Nayeon</p>
+                                <p className={styles.chatTime}>2025/02/16 14:42</p>
                             </div>
                         </div>
                     </div>

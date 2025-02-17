@@ -6,7 +6,8 @@ $mainColor: #69b3f6;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #f7f7f7;
+    background-color: #fff;
+    padding-bottom: 60px;
 }
 
 .header {
@@ -119,7 +120,7 @@ $mainColor: #69b3f6;
     }
 }
 
-.bottomRow {
+.middleRow {
     display: grid;
     grid-template-columns: 415fr 711fr;
     gap: 20px;
@@ -190,5 +191,35 @@ $mainColor: #69b3f6;
                 }
             }
         }
+    }
+}
+
+.bottomRow {
+    height: 140px;
+    background-color: rgba(150, 217, 255, 0.5);
+    border-radius: 10px;
+    padding-top: 10px;
+
+    .historyTop {
+        color: #00417d;
+
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+
+        .moreLink {
+            font-size: 1.25rem;
+            font-family: $mainFont;
+            font-weight: 700;
+            color: #00417d;
+        }
+    }
+
+    .userContent {
+        color: #00417d;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        padding: 10px 0 0 20px;
     }
 }
