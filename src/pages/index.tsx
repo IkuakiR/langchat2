@@ -66,7 +66,7 @@ export default function Home() {
                     <Link href="/chatRoom">
                       <div className={styles.imageWrapper}>
                         <Image
-                          src={'/images/male1.svg'}
+                          src={'/images/maleThub1.svg'}
                           alt=""
                           fill
                           style={{ objectFit: 'cover', objectPosition: 'center' }}
@@ -78,7 +78,7 @@ export default function Home() {
                   <li className={styles.roomItem}>
                     <div className={styles.imageWrapper}>
                       <Image
-                        src={'/images/male2.svg'}
+                        src={'/images/maleThub2.svg'}
                         alt=""
                         fill
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
@@ -89,7 +89,7 @@ export default function Home() {
                   <li className={styles.roomItem}>
                     <div className={styles.imageWrapper}>
                       <Image
-                        src={'/images/female1.svg'}
+                        src={'/images/femaleThub2.svg'}
                         alt=""
                         fill
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
@@ -100,7 +100,7 @@ export default function Home() {
                   <li className={styles.roomItem}>
                     <div className={styles.imageWrapper}>
                       <Image
-                        src={'/images/male1.svg'}
+                        src={'/images/maleThub1.svg'}
                         alt=""
                         fill
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
@@ -112,7 +112,7 @@ export default function Home() {
                     <a href="">
                       <div className={styles.imageWrapper}>
                         <Image
-                          src={'/images/male2.svg'}
+                          src={'/images/maleThub1.svg'}
                           alt=""
                           fill
                           style={{ objectFit: 'cover', objectPosition: 'center' }}
@@ -127,7 +127,7 @@ export default function Home() {
                   <li className={styles.roomItem}>
                     <div className={styles.imageWrapper}>
                       <Image
-                        src={'/images/female1.svg'}
+                        src={'/images/femaleThub1.svg'}
                         alt=""
                         fill
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
@@ -138,7 +138,7 @@ export default function Home() {
                   <li className={styles.roomItem}>
                     <div className={styles.imageWrapper}>
                       <Image
-                        src={'/images/male3.svg'}
+                        src={'/images/maleThub3.svg'}
                         alt=""
                         fill
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
@@ -149,7 +149,7 @@ export default function Home() {
                   <li className={styles.roomItem}>
                     <div className={styles.imageWrapper}>
                       <Image
-                        src={'/images/male1.svg'}
+                        src={'/images/maleThub1.svg'}
                         alt=""
                         fill
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
@@ -160,7 +160,7 @@ export default function Home() {
                   <li className={styles.roomItem}>
                     <div className={styles.imageWrapper}>
                       <Image
-                        src={'/images/male2.svg'}
+                        src={'/images/maleThub2.svg'}
                         alt=""
                         fill
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
